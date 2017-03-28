@@ -27,7 +27,7 @@ class NotesController < ApplicationController
 
   def index
     @notes = current_user.notes + current_user.guest_notes
-    render :json => @notes.to_json(:include => [:users, :tags])
+    #render :json => @notes.to_json(:include => [:users, :tags])
   end
 
   def show
@@ -39,8 +39,8 @@ class NotesController < ApplicationController
     def set_note
       @note = Note.find params[:id]
       @note = current_user.guest_notes.find params[:id] unless @note.present?
-      end
     end
+    
 
     def note_params
       params.require(:note).permit(:title, :body)
