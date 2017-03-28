@@ -3,7 +3,8 @@ class NotesController < ApplicationController
   before_filter :set_note, only: [:update, :destroy, :show]
 
   def index
-    @notes = current_user.notes + current_user.guest_notes
+    # TODO: Colocar filtros
+    @notes = current_user.notes + current_user.guest_notes
   end
   
   def create
