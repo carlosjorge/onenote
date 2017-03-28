@@ -2,6 +2,10 @@ class NotesController < ApplicationController
 
   before_filter :set_note, only: [:update, :destroy, :show]
 
+  def index
+    @notes = current_user.notes + current_user.guest_notes
+  end
+  
   def create
     @note = Note.new(note_params.merge(user: current_user))
  
@@ -23,11 +27,6 @@ class NotesController < ApplicationController
   def destroy
     @note.destroy
     render json: {message: "Nota removida com sucesso!"}, status: :ok
-  end
-
-  def index
-    @notes = current_user.notes + current_user.guest_notes
-    #render :json => @notes.to_json(:include => [:users, :tags])
   end
 
   def show
